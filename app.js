@@ -4,7 +4,11 @@ var bodyParser = require('body-parser');
 var path       = require('path');
 var XLSX       = require('xlsx');
 var multer     = require('multer');
+const dotenv  = require('dotenv');
 
+dotenv.config({ path: './.env' })
+
+const  MONGO_URL  = process.env.MONGO_URL;
 
 //multer
 var storage = multer.diskStorage({
@@ -19,7 +23,7 @@ var storage = multer.diskStorage({
   var upload = multer({ storage: storage });
 
 //connect to db
-mongoose.connect('mongodb+srv://harsh31:harsh31@cluster0.5g7gwvw.mongodb.net/?retryWrites=true&w=majority',{useNewUrlParser:true})
+mongoose.connect(MONGO_URL,{useNewUrlParser:true})
 .then(()=>{console.log('connected to db')})
 .catch((error)=>{console.log('error',error)});
 
